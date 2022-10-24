@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Groundhog</string>
+    <string name="text_title">Whack a Groundhog</string>
+    <string name="hint_input">Player name</string>
+    <string name="text_button">Begin</string>
+    <string name="text_leaderboard">Best players (48h)</string>
+    <string name="text_fetching">Fetching data…</string>
+    <string name="menu_text_leaderboard">Leaderboard</string>
+    <string name="label_score">High score:</string>
+</resources>
