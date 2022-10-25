@@ -1,10 +1,14 @@
-package com.example.groundhog.model;
+package com.example.groundhog;
 
 
 public class Player {
     private String nickname;
     private int score;
-    public Player() {}
+    public static final Player nonExistent = new Player();
+
+    public Player() {
+    }
+
     public Player(String nickname) {
         this.nickname = nickname;
     }
@@ -25,5 +29,7 @@ public class Player {
         this.score = score;
     }
 
-    public static final Player nonExistent = new Player();
+    public boolean exists() {
+        return this.equals(nonExistent);
+    }
 }

@@ -7,4 +7,5 @@
     <string name="text_fetching">Fetching data…</string>
     <string name="menu_text_leaderboard">Leaderboard</string>
     <string name="label_score">High score:</string>
+    <string name="leaderboard_name">Leaderboard</string>
 </resources>
