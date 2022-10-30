@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="com.example.groundhog.viewmodel.GameViewModel"/>
+    </data>
+
+    <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <com.example.groundhog.view.GameView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+        >
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+            />
+
+            <EditText
+                    android:id="@+id/input"
+                    android:layout_height="wrap_content"
+                    android:layout_width="250dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/hint_input"
+                    android:inputType="text"
+                    android:importantForAutofill="no"
+                    android:minHeight="48dp"
+                    android:enabled="@{!viewModel.inputLocked}"
+                    android:text="@={viewModel.nickname}"
+                    />
+
+            <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_button"
+                    android:layout_below="@+id/input"
+                    android:enabled="@{!viewModel.loading}"
+                    android:onClick="@{() -> viewModel.beginGame()}"
+                    android:layout_centerHorizontal="true"
+            />
+            
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_offline"
+                    android:layout_below="@+id/button"
+                    android:visibility="gone"
+                    android:layout_centerHorizontal="true"
+            />
+
+            <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="@{viewModel.loading ? View.VISIBLE : View.INVISIBLE}"
+                    style="?android:attr/progressBarStyleSmall"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@id/leaderboard"
+                    android:visibility="@{viewModel.score > 0 ? View.VISIBLE : View.INVISIBLE}"
+                    android:text="@{@string/label_score + viewModel.score}"
+            />
+
+            <ImageView
+                    android:id="@+id/leaderboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:src="@drawable/ic_star"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:onClick="@{() -> viewModel.showLeaderboard()}"
+            />
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

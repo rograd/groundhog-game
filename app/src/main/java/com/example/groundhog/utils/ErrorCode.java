@@ -1,11 +1,12 @@
-package com.example.groundhog;
+package com.example.groundhog.utils;
 
 import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 public enum ErrorCode {
-    UNAUTHORIZED_PLAYER("Unauthorized player."),
-    NICKNAME_IN_USE("Nickname already in use.");
+    COULD_NOT_AUTHORIZE("Couldn't authorize, please sign up."),
+    NICKNAME_IN_USE("Nickname's already in use."),
+    DATABASE_ERROR("Database error.");
 
     private final String description;
 
