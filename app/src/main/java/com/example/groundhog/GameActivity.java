@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements GameActivityContr
         hideSystemBars();
 
         ActivityGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_game);
-        binding.setViewModel(new GameViewModel(this));
+        binding.setViewModel(new GameViewModel(this, findViewById(R.id.game)));
         binding.executePendingBindings();
 
         binding.getViewModel().tryLoadExistingPlayer();

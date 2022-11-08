@@ -5,6 +5,7 @@ import androidx.databinding.Bindable;
 import com.example.groundhog.BR;
 import com.example.groundhog.controller.GameActivityController;
 import com.example.groundhog.repository.GameRepository;
+import com.example.groundhog.controller.GameController;
 
 public abstract class GameViewModelBase extends BaseObservable {
     protected final GameRepository repository = new GameRepository();
@@ -12,17 +13,8 @@ public abstract class GameViewModelBase extends BaseObservable {
     protected int score;
     protected boolean loading;
     protected boolean inputLocked;
-
-    public boolean isGameStarted() {
-        return gameStarted;
-    }
-
-    public void setGameStarted(boolean gameStarted) {
-        this.gameStarted = gameStarted;
-    }
-
-    protected boolean gameStarted;
     protected GameActivityController activityController;
+    protected GameController gameController;
 
     @Bindable
     public String getNickname() {

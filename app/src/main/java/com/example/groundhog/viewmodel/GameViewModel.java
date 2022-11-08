@@ -1,10 +1,10 @@
 package com.example.groundhog.viewmodel;
 
-import android.app.Activity;
 import com.example.groundhog.controller.GameActivityController;
 import com.example.groundhog.repository.GameRepository;
 import com.example.groundhog.utils.ErrorCode;
 import com.example.groundhog.model.Player;
+import com.example.groundhog.controller.GameController;
 
 public class GameViewModel extends GameViewModelBase {
     public void beginGame() {
@@ -14,7 +14,8 @@ public class GameViewModel extends GameViewModelBase {
             @Override
             public void onSuccess(Player player) {
                 setLoading(false);
-                activityController.showToast(player.getNickname());
+                // activityController.showToast(player.getNickname());
+                // gameController.startGame();
             }
 
             @Override
@@ -30,10 +31,9 @@ public class GameViewModel extends GameViewModelBase {
         });
     }
 
-    public GameViewModel() {}
-
-    public GameViewModel(GameActivityController activityController) {
+    public GameViewModel(GameActivityController activityController, GameController gameController) {
         this.activityController = activityController;
+        this.gameController = gameController;
     }
 
     public void tryLoadExistingPlayer() {
