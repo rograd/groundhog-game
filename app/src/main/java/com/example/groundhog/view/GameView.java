@@ -1,26 +1,39 @@
 package com.example.groundhog.view;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.View;
-import androidx.annotation.Nullable;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
-public class GameView extends View {
-
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public GameView(Context context) {
         super(context);
+
+        setFocusable(false);
+        getHolder().addCallback(this);
     }
 
-    public GameView(Context context, @Nullable @org.jetbrains.annotations.Nullable AttributeSet attrs) {
+    public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawColor(Color.YELLOW);
-        Paint p = new Paint();
-        canvas.drawCircle(10, 10, 30, p);
+    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+        Canvas canvas = surfaceHolder.lockCanvas();
+        canvas.drawCircle(50, 50, 20, new Paint(Color.WHITE));
+        surfaceHolder.unlockCanvasAndPost(canvas);
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+
     }
 }

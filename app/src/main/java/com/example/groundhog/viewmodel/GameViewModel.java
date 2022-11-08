@@ -1,5 +1,7 @@
 package com.example.groundhog.viewmodel;
 
+import android.app.Activity;
+import com.example.groundhog.controller.GameActivityController;
 import com.example.groundhog.repository.GameRepository;
 import com.example.groundhog.utils.ErrorCode;
 import com.example.groundhog.model.Player;
@@ -26,6 +28,12 @@ public class GameViewModel extends GameViewModelBase {
                 }
             }
         });
+    }
+
+    public GameViewModel() {}
+
+    public GameViewModel(GameActivityController activityController) {
+        this.activityController = activityController;
     }
 
     public void tryLoadExistingPlayer() {

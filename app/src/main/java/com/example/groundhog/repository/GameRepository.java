@@ -43,8 +43,7 @@ public class GameRepository {
                     FirebaseUser user = authResult.getUser();
                     String id = Objects.requireNonNull(user).getUid();
                     checkUniqueNickname(id, player, callback);
-                })
-                .addOnFailureListener(exception -> callback.onError(ErrorCode.DATABASE_ERROR));
+                });
     }
 
     private void checkUniqueNickname(String id, Player player, CompletionListener callback) {
@@ -100,8 +99,7 @@ public class GameRepository {
                         currentUser.delete();
                         listener.onError(ErrorCode.COULD_NOT_AUTHORIZE);
                     }
-                })
-                .addOnFailureListener(e -> listener.onError(ErrorCode.DATABASE_ERROR));
+                });
     }
 
     public void getCurrentPlayer(CompletionListener listener) {

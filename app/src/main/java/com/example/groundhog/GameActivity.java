@@ -23,9 +23,7 @@ public class GameActivity extends AppCompatActivity implements GameActivityContr
         hideSystemBars();
 
         ActivityGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_game);
-        GameViewModel gameViewModel = new GameViewModel();
-        gameViewModel.setActivityController(this);
-        binding.setViewModel(gameViewModel);
+        binding.setViewModel(new GameViewModel(this));
         binding.executePendingBindings();
 
         binding.getViewModel().tryLoadExistingPlayer();
@@ -34,9 +32,9 @@ public class GameActivity extends AppCompatActivity implements GameActivityContr
     private void hideSystemBars() {
         WindowInsetsControllerCompat windowInsetsController =
                 ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController == null) {
+        if (windowInsetsController == null)
             return;
-        }
+
         // Configure the behavior of the hidden system bars
         windowInsetsController.setSystemBarsBehavior(
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
