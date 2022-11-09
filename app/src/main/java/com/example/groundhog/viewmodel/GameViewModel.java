@@ -7,28 +7,29 @@ import com.example.groundhog.model.Player;
 import com.example.groundhog.controller.GameController;
 
 public class GameViewModel extends GameViewModelBase {
-    public void beginGame() {
-        setLoading(true);
-        Player player = new Player(getNickname());
-        repository.registerPlayer(player, new GameRepository.CompletionListener() {
-            @Override
-            public void onSuccess(Player player) {
-                setLoading(false);
-                // activityController.showToast(player.getNickname());
-                // gameController.startGame();
-            }
-
-            @Override
-            public void onError(ErrorCode errorCode) {
-                setLoading(false);
-                activityController.showToast(errorCode.toString());
-                if (errorCode == ErrorCode.COULD_NOT_AUTHORIZE) {
-                    setInputLocked(false);
-                    setNickname("");
-                    setScore(0);
-                }
-            }
-        });
+    public void startGame() {
+        setGameStarted(true);
+//        setLoading(true);
+//        Player player = new Player(getNickname());
+//        repository.registerPlayer(player, new GameRepository.CompletionListener() {
+//            @Override
+//            public void onSuccess(Player player) {
+//                setLoading(false);
+//                // activityController.showToast(player.getNickname());
+//                // gameController.startGame();
+//            }
+//
+//            @Override
+//            public void onError(ErrorCode errorCode) {
+//                setLoading(false);
+//                activityController.showToast(errorCode.toString());
+//                if (errorCode == ErrorCode.COULD_NOT_AUTHORIZE) {
+//                    setInputLocked(false);
+//                    setNickname("");
+//                    setScore(0);
+//                }
+//            }
+//        });
     }
 
     public GameViewModel(GameActivityController activityController, GameController gameController) {

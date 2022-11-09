@@ -5,26 +5,27 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+
 import com.example.groundhog.controller.GameController;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, GameController {
-    public GameView(Context context) {
-        super(context);
-
-        setFocusable(false);
-        getHolder().addCallback(this);
-    }
+    private SurfaceHolder surfaceHolder;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        surfaceHolder = getHolder();
+        surfaceHolder.addCallback(this);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Canvas canvas = surfaceHolder.lockCanvas();
-        canvas.drawCircle(50, 50, 20, new Paint(Color.WHITE));
+        canvas.drawColor(Color.WHITE);
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
@@ -36,5 +37,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Gam
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Paint paint = new Paint(Color.WHITE);
+        if (surfaceHolder.getSurface().isValid()) {
+            Canvas canvas = surfaceHolder.lockCanvas();
+            canvas.drawCircle(event.getX(), event.getY(), 100, paint);
+            surfaceHolder.unlockCanvasAndPost(canvas);
+        }
+
+        return super.onTouchEvent(event);
     }
 }

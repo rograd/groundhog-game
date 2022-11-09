@@ -13,6 +13,7 @@ public abstract class GameViewModelBase extends BaseObservable {
     protected int score;
     protected boolean loading;
     protected boolean inputLocked;
+    protected boolean gameStarted;
     protected GameActivityController activityController;
     protected GameController gameController;
 
@@ -36,6 +37,11 @@ public abstract class GameViewModelBase extends BaseObservable {
         return loading;
     }
 
+    @Bindable
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
     public void setNickname(String nickname) {
         this.nickname = nickname;
         notifyPropertyChanged(BR.nickname);
@@ -54,5 +60,10 @@ public abstract class GameViewModelBase extends BaseObservable {
     public void setLoading(boolean loading) {
         this.loading = loading;
         notifyPropertyChanged(BR.loading);
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+        notifyPropertyChanged(BR.gameStarted);
     }
 }

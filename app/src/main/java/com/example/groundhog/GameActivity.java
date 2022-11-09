@@ -26,7 +26,7 @@ public class GameActivity extends AppCompatActivity implements GameActivityContr
         binding.setViewModel(new GameViewModel(this, findViewById(R.id.game)));
         binding.executePendingBindings();
 
-        binding.getViewModel().tryLoadExistingPlayer();
+        //binding.getViewModel().tryLoadExistingPlayer();
     }
 
     private void hideSystemBars() {
