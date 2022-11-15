@@ -9,6 +9,7 @@ import com.example.groundhog.controller.GameController;
 public class GameViewModel extends GameViewModelBase {
     public void startGame() {
         setGameStarted(true);
+        gameController.onStart();
 //        setLoading(true);
 //        Player player = new Player(getNickname());
 //        repository.registerPlayer(player, new GameRepository.CompletionListener() {
