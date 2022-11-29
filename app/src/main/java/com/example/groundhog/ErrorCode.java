@@ -1,4 +1,4 @@
-package com.example.groundhog.utils;
+package com.example.groundhog;
 
 import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;

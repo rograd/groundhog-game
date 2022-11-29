@@ -1,4 +1,4 @@
-package com.example.groundhog.repository;
+package com.example.groundhog;
 
 public class LeaderboardRepository extends GameRepository {
     public void getPlayers() {

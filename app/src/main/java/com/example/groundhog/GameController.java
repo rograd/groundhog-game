@@ -1,4 +1,4 @@
-package com.example.groundhog.controller;
+package com.example.groundhog;
 
 public interface GameController {
     void onStart();

@@ -1,7 +1,5 @@
-package com.example.groundhog.repository;
+package com.example.groundhog;
 
-import com.example.groundhog.model.Player;
-import com.example.groundhog.utils.ErrorCode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;

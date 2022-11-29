@@ -5,14 +5,14 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable name="viewModel" type="com.example.groundhog.viewmodel.GameViewModel"/>
+        <variable name="viewModel" type="com.example.groundhog.GameViewModel"/>
     </data>
 
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.example.groundhog.view.GameView
+        <com.example.groundhog.GameView
                 android:id="@+id/game"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

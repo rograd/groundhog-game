@@ -8,12 +8,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.databinding.DataBindingUtil;
-import com.example.groundhog.controller.GameActivityController;
 import com.example.groundhog.databinding.ActivityGameBinding;
-import com.example.groundhog.viewmodel.GameViewModel;
 
 
-public class GameActivity extends AppCompatActivity implements GameActivityController {
+public class GameActivity extends AppCompatActivity implements ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

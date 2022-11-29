@@ -1,4 +1,4 @@
-package com.example.groundhog.model;
+package com.example.groundhog;
 
 
 public class Player {
