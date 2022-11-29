@@ -15,8 +15,6 @@ public class Groundhog implements Renderable {
     private final int height;
     private static final int SPRITE_COUNT = 5;
     private int screenWidth;
-    private int screenHeight;
-    private static final int PADDING = 50;
     private static Groundhog active;
 
     public Groundhog(Resources resources, int number) {
@@ -30,13 +28,12 @@ public class Groundhog implements Renderable {
     @Override
     public void resize(int width, int height) {
         this.screenWidth = width;
-        this.screenHeight = height;
     }
 
     @Override
     public void update(int frame) {
         int startX = 0;
-        if (active.equals(this) || true) {
+        if (active.equals(this)) {
             startX = (frame - 1) * this.width;
         }
 
@@ -61,5 +58,9 @@ public class Groundhog implements Renderable {
 
     public static void setActive(Groundhog groundhog) {
         active = groundhog;
+    }
+
+    public static Groundhog getActive() {
+        return active;
     }
 }

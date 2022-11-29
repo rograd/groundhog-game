@@ -14,7 +14,6 @@ public class RenderThread extends Thread {
     private final Groundhog[] groundhogs = new Groundhog[6];
     private final Renderable[] renderables = new Renderable[groundhogs.length + 1];
     private boolean quit = false;
-    private static final int FRAMES = 4;
 
     public RenderThread(SurfaceHolder surfaceHolder, Resources resources) {
         super(RenderThread.class.getSimpleName());
@@ -39,20 +38,62 @@ public class RenderThread extends Thread {
     @Override
     public void run() {
         Groundhog.setActive(pickRandomHog());
-        double fps = 1f / FRAMES;
-        double currentTime = SystemClock.elapsedRealtime();
-        while (!quit) {
-            double newTime = SystemClock.elapsedRealtime();
-            double frameTime = (newTime - currentTime) / 1000.0f;
-            currentTime = newTime;
 
-            while (frameTime > 0.0) {
-                double deltaTime = Math.min(frameTime, fps);
-                integrate(2);
-                frameTime -= deltaTime;
+        long lastTime = System.nanoTime();
+        double nsPerTick = 1000000000D / 5;
+
+        int ticks = 0;
+        int frames = 0;
+
+        long lastTimer = System.currentTimeMillis();
+        double delta = 0;
+
+        while (!quit) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / nsPerTick;
+            lastTime = now;
+            boolean shouldRender = true;
+
+            while (delta >= 1) {
+                ticks++;
+                integrate(ticks);
+                if (ticks == 5) {
+                    Groundhog.setActive(null);
+                }
+                delta -= 1;
+                shouldRender = true;
             }
-            render();
+
+            try {
+                Thread.sleep(2);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+
+            if (shouldRender) {
+                frames++;
+                render();
+            }
+
+            if (System.currentTimeMillis() - lastTimer >= 1000) {
+                Groundhog.setActive(pickRandomHog());
+                lastTimer += 1000;
+                System.out.println(ticks + " ticks, " + frames + " frames");
+                frames = 0;
+                ticks = 0;
+            }
         }
+    }
+
+    public boolean smash(int x, int y) {
+        System.out.println(x);
+        System.out.println(y);
+        Groundhog active = Groundhog.getActive();
+        if (active != null) {
+            // constructor has to have position now
+            // check whether coordinates match
+        }
+        return false;
     }
 
     private Groundhog pickRandomHog() {
