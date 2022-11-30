@@ -90,8 +90,13 @@ public class RenderThread extends Thread {
         System.out.println(y);
         Groundhog active = Groundhog.getActive();
         if (active != null) {
-            // constructor has to have position now
-            // check whether coordinates match
+            int startX = active.getStartX();
+            int endX = active.getWidth();
+            int startY = active.getStartY();
+            int endY = active.getHeight();
+            if (x >= startX && x <= endX && y >= startY && y <= endY) {
+                System.out.println("smashed");
+            }
         }
         return false;
     }

@@ -7,27 +7,53 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 
 public class Groundhog implements Renderable {
-    private final int number;
-    private Bitmap sprite;
+    private final Bitmap sprite;
     private static int count;
     private Bitmap current;
-    private final int width;
-    private final int height;
     private static final int SPRITE_COUNT = 5;
-    private int screenWidth;
+    private final int number;
     private static Groundhog active;
+    private int startX;
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    private int startY;
+    private final int height;
+    private final int width;
 
     public Groundhog(Resources resources, int number) {
+        sprite = BitmapFactory.decodeResource(resources, R.drawable.spritesheet);
+        width = sprite.getWidth() / SPRITE_COUNT;
+        height = sprite.getHeight();
         this.number = number;
-        this.sprite = BitmapFactory.decodeResource(resources, R.drawable.spritesheet);
-        this.width = this.sprite.getWidth() / SPRITE_COUNT;
-        this.height = this.sprite.getHeight();
+        this.startY = Background.offset + height / 4;
+
         count++;
     }
 
     @Override
     public void resize(int width, int height) {
-        this.screenWidth = width;
+        int spacePerHog = width / count;
+        this.startX = this.number * spacePerHog;
+
+        if (this.number % 2 != 0) {
+            this.startX -= width / 8;
+            this.startY = height - this.height;
+        }
     }
 
     @Override
@@ -37,23 +63,14 @@ public class Groundhog implements Renderable {
             startX = (frame - 1) * this.width;
         }
 
-        this.current = Bitmap.createBitmap(this.sprite, startX, 0, this.width, this.height);
+        this.current = Bitmap.createBitmap(this.sprite, startX, 0, width, height);
     }
 
     @Override
     public void draw(Canvas c) {
-        if (this.current == null)
-            return;
-
-        int pxPerHog = screenWidth / count;
-        int x = pxPerHog * this.number;
-        int y = Background.offset + height / 4;
-        if (this.number % 2 != 0) {
-            x -= width / 4;
-            y = height - height / 4;
+        if (this.current != null) {
+            c.drawBitmap(this.current, this.startX, this.startY, null);
         }
-
-        c.drawBitmap(this.current, x, y, null);
     }
 
     public static void setActive(Groundhog groundhog) {
