@@ -11,7 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import com.example.groundhog.databinding.ActivityGameBinding;
 
 
-public class GameActivity extends AppCompatActivity implements ActivityController {
+
+
+public class MainActivity extends AppCompatActivity implements ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,20 @@ public class GameActivity extends AppCompatActivity implements ActivityControlle
         hideSystemBars();
 
         ActivityGameBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_game);
-        binding.setViewModel(new GameViewModel(this, findViewById(R.id.game)));
+
+        binding.setViewModel(new GameViewModel(this, () -> {
+            setContentView(new GameView(this, new RenderThread.GameCallback() {
+                @Override
+                public void onScore(int score) {
+                    showToast(score + "/20");
+                }
+
+                @Override
+                public void onOver() {
+
+                }
+            }));
+        }));
         binding.executePendingBindings();
 
         //binding.getViewModel().tryLoadExistingPlayer();
@@ -43,13 +58,13 @@ public class GameActivity extends AppCompatActivity implements ActivityControlle
 
     @Override
     public void showLeaderboard() {
-        Intent intent = new Intent(GameActivity.this, LeaderboardActivity.class);
+        Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void showToast(String message) {
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.show();
     }
 }

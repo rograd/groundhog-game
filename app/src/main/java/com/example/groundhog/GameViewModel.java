@@ -1,17 +1,22 @@
 package com.example.groundhog;
 
+@FunctionalInterface
+interface GameCallback {
+    void onStart();
+}
+
 public class GameViewModel extends GameViewModelBase {
     private final ActivityController activityController;
-    private final GameController gameController;
+    private final GameCallback callback;
 
-    public GameViewModel(ActivityController activityController, GameController gameController) {
+    public GameViewModel(ActivityController activityController, GameCallback callback) {
         this.activityController = activityController;
-        this.gameController = gameController;
+        this.callback = callback;
     }
 
     public void startGame() {
         setGameStarted(true);
-        gameController.onStart();
+        callback.onStart();
 //        setLoading(true);
 //        Player player = new Player(getNickname());
 //        repository.registerPlayer(player, new GameRepository.CompletionListener() {

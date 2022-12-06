@@ -7,20 +7,23 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.*;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback, GameController {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private final SurfaceHolder surfaceHolder;
     private RenderThread renderThread;
+    private RenderThread.GameCallback callback;
 
-    public GameView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public GameView(Context context, RenderThread.GameCallback callback) {
+        super(context);
 
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
+        this.callback = callback;
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        renderThread = new RenderThread(surfaceHolder, getResources());
+        renderThread = new RenderThread(surfaceHolder, getResources(), callback);
+        renderThread.start();
     }
 
     @Override
@@ -37,10 +40,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Gam
     public boolean onTouchEvent(MotionEvent event) {
         renderThread.smash((int)event.getX(), (int)event.getY());
         return super.onTouchEvent(event);
-    }
-
-    @Override
-    public void onStart() {
-        renderThread.start();
     }
 }

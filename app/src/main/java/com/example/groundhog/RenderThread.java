@@ -14,11 +14,15 @@ public class RenderThread extends Thread {
     private final Groundhog[] groundhogs = new Groundhog[6];
     private final Renderable[] renderables = new Renderable[groundhogs.length + 1];
     private boolean quit = false;
+    private GameCallback callback;
+    private int score;
+    private int tries;
 
-    public RenderThread(SurfaceHolder surfaceHolder, Resources resources) {
+    public RenderThread(SurfaceHolder surfaceHolder, Resources resources, GameCallback callback) {
         super(RenderThread.class.getSimpleName());
 
         this.surfaceHolder = surfaceHolder;
+        this.callback = callback;
 
         Background background = new Background(resources);
         renderables[0] = background;
@@ -35,6 +39,11 @@ public class RenderThread extends Thread {
         }
     }
 
+    public interface GameCallback {
+        void onScore(int score);
+        void onOver();
+    }
+
     @Override
     public void run() {
         Groundhog.setActive(pickRandomHog());
@@ -48,32 +57,30 @@ public class RenderThread extends Thread {
         long lastTimer = System.currentTimeMillis();
         double delta = 0;
 
-        while (!quit) {
+        while (!quit && tries < 20) {
             long now = System.nanoTime();
             delta += (now - lastTime) / nsPerTick;
             lastTime = now;
-            boolean shouldRender = true;
 
             while (delta >= 1) {
                 ticks++;
                 integrate(ticks);
                 if (ticks == 5) {
                     Groundhog.setActive(null);
+                    tries++;
                 }
+
                 delta -= 1;
-                shouldRender = true;
             }
 
             try {
-                Thread.sleep(2);
+                sleep(2);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
 
-            if (shouldRender) {
-                frames++;
-                render();
-            }
+            frames++;
+            render();
 
             if (System.currentTimeMillis() - lastTimer >= 1000) {
                 Groundhog.setActive(pickRandomHog());
@@ -83,22 +90,21 @@ public class RenderThread extends Thread {
                 ticks = 0;
             }
         }
+        callback.onOver();
     }
 
-    public boolean smash(int x, int y) {
-        System.out.println(x);
-        System.out.println(y);
+    public void smash(int x, int y) {
         Groundhog active = Groundhog.getActive();
         if (active != null) {
             int startX = active.getStartX();
-            int endX = active.getWidth();
+            int endX = startX + active.getWidth();
             int startY = active.getStartY();
-            int endY = active.getHeight();
+            int endY = startY + active.getHeight();
             if (x >= startX && x <= endX && y >= startY && y <= endY) {
-                System.out.println("smashed");
+                score++;
+                callback.onScore(score);
             }
         }
-        return false;
     }
 
     private Groundhog pickRandomHog() {

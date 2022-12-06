@@ -14,23 +14,6 @@ public class Groundhog implements Renderable {
     private final int number;
     private static Groundhog active;
     private int startX;
-
-    public int getStartX() {
-        return startX;
-    }
-
-    public int getStartY() {
-        return startY;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
     private int startY;
     private final int height;
     private final int width;
@@ -59,7 +42,7 @@ public class Groundhog implements Renderable {
     @Override
     public void update(int frame) {
         int startX = 0;
-        if (active.equals(this)) {
+        if (this.equals(active)) {
             startX = (frame - 1) * this.width;
         }
 
@@ -79,5 +62,21 @@ public class Groundhog implements Renderable {
 
     public static Groundhog getActive() {
         return active;
+    }
+
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }
