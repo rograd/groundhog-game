@@ -4,7 +4,6 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 public abstract class GameViewModelBase extends BaseObservable {
-    protected final GameRepository repository = new GameRepository();
     protected String nickname;
     protected int score;
     protected boolean loading;

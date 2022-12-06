@@ -42,7 +42,7 @@ public class GameViewModel extends GameViewModelBase {
 
     public void tryLoadExistingPlayer() {
         setLoading(true);
-        repository.getCurrentPlayer(new GameRepository.CompletionListener() {
+ /*       repository.getCurrentPlayer(new GameRepository.CompletionListener() {
             @Override
             public void onSuccess(Player player) {
                 setLoading(false);
@@ -55,7 +55,7 @@ public class GameViewModel extends GameViewModelBase {
             public void onError(ErrorCode errorCode) {
                 setLoading(false);
             }
-        });
+        });*/
     }
 
     public void showLeaderboard() {
