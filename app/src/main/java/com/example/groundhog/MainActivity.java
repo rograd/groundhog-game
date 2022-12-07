@@ -18,6 +18,7 @@ import com.example.groundhog.databinding.ActivityGameBinding;
 
 public class MainActivity extends AppCompatActivity implements ActivityController {
     private int score;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements ActivityControlle
                 public void onOver() {
                     SharedPreferences preferences = getSharedPreferences("", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("nickname", String.valueOf(score));
+                    String nickname = binding.getViewModel().getNickname();
+                    editor.putString(nickname, String.valueOf(score));
                     editor.apply();
 
                     showLeaderboard();
